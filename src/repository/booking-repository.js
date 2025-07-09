@@ -63,11 +63,11 @@ class BookingRepository {
 
             // Can be implemented for Other Applications Where Prev Bookings Data is not necessary
             // // Delete the booking
-            // await Booking.destroy({
-            //     where: {
-            //         id: bookingId,
-            //     }
-            // });
+            await Booking.destroy({
+                where: {
+                    id: bookingId,
+                }
+            });
 
             return booking; // Return the booking details that were deleted
         } catch (error) {

@@ -7,10 +7,10 @@
     "start": "node src/index.js",
     "dev": "nodemon src/index.js"
   },
-  "author": "Ashwin",
+  "author": "Kiran",
   "license": "ISC",
   "dependencies": {
-    "amqplib": "^0.10.4",
+    "amqplib": "^0.10.8",
     "axios": "^1.7.2",
     "body-parser": "^1.20.2",
     "dotenv": "^16.4.5",
