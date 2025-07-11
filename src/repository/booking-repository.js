@@ -37,6 +37,63 @@ class BookingRepository {
         }
     }
 
+    // Get booking details by ID
+    async getAll(filters = {}) {
+        try {
+            const whereClause = {};
+            
+            // Add filters if provided
+            if (filters.status) {
+                whereClause.status = filters.status;
+            }
+            if (filters.flightId) {
+                whereClause.flightId = filters.flightId;
+            }
+            if (filters.userId) {
+                whereClause.userId = filters.userId;
+            }
+
+            const bookings = await Booking.findAll({
+                where: whereClause,
+                order: [['createdAt', 'DESC']]
+            });
+            return bookings;
+        } catch (error) {
+            throw new AppError(
+                'RepositoryError',
+                'Cannot fetch bookings',
+                'There was some issue fetching the bookings',
+                StatusCodes.INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    async getBooking(bookingId) {
+        try {
+            const booking = await Booking.findOne({
+                where: {
+                    id: bookingId
+                }
+            });
+            if (!booking) {
+                throw new AppError(
+                    'NotFoundError',
+                    'Booking not found',
+                    'The booking with the provided ID does not exist',
+                    StatusCodes.NOT_FOUND
+                );
+            }
+            return booking;
+        } catch (error) {
+            throw new AppError(
+                'RepositoryError',
+                'Cannot get Booking',
+                'There was some issue fetching the booking details',
+                StatusCodes.INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
     //To delete a Booking
     async deleteBooking(bookingId, data) {
         try {

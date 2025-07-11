@@ -29,6 +29,26 @@ class BookingController {
         });
     }
 
+    async getAll(req, res) {
+        try {
+            const filters = req.query;
+            const bookings = await bookingService.getAllBookings(filters);
+            return res.status(StatusCodes.OK).json({
+                message: 'Successfully fetched bookings',
+                success: true,
+                err: {},
+                data: bookings
+            });
+        } catch (error) {
+            return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: error.message,
+                success: false,
+                err: error.explanation,
+                data: {}
+            });
+        }
+    }
+
     async create (req, res) {
         try {
             const response = await bookingService.createBooking(req.body);

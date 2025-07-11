@@ -9,6 +9,7 @@ router.get('/info', (req, res) => {
   });
 router.post('/bookings', bookingController.create);
 router.delete('/bookings', bookingController.destroy);
+router.get('/bookings', bookingController.getAll);
 router.post('/publish', bookingController.sendMessageToQueue);
 
 module.exports = router;
